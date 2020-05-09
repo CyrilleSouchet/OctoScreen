@@ -35,8 +35,8 @@ func (m *toolchangerPanel) initialize() {
 
 	m.Grid().Attach(m.createHomeButton(), 1, 1, 1, 1)
 
-	m.Grid().Attach(m.createMagnetOnButton(), 3, 1, 1, 1)
-	m.Grid().Attach(m.createMagnetOffButton(), 4, 1, 1, 1)
+	//m.Grid().Attach(m.createMagnetOnButton(), 3, 1, 1, 1)
+	//m.Grid().Attach(m.createMagnetOffButton(), 4, 1, 1, 1)
 	m.Grid().Attach(m.createZCalibrationButton(), 2, 2, 1, 1)
 }
 

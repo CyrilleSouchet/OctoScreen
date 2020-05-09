@@ -35,11 +35,19 @@ func FilamentMultitoolPanel(ui *UI, parent Panel) Panel {
 
 func (m *filamentMultitoolPanel) initialize() {
 	defer m.Initialize()
+	toolsCount := m.defineToolsCount()
 
 	m.Grid().Attach(m.createChangeToolButton(0), 1, 0, 1, 1)
-	m.Grid().Attach(m.createChangeToolButton(1), 2, 0, 1, 1)
-	m.Grid().Attach(m.createChangeToolButton(2), 3, 0, 1, 1)
-	m.Grid().Attach(m.createChangeToolButton(3), 4, 0, 1, 1)
+	if toolsCount >= 2 {
+		m.Grid().Attach(m.createChangeToolButton(1), 2, 0, 1, 1)
+	}
+
+	if toolsCount >= 3 {
+		m.Grid().Attach(m.createChangeToolButton(2), 3, 0, 1, 1)
+	}
+	if toolsCount == 4 {
+		m.Grid().Attach(m.createChangeToolButton(3), 4, 0, 1, 1)
+	}
 
 	m.Grid().Attach(m.createLoadButton(), 1, 1, 1, 1)
 	m.Grid().Attach(m.createUnloadButton(), 4, 1, 1, 1)
@@ -52,6 +60,26 @@ func (m *filamentMultitoolPanel) initialize() {
 
 	m.Grid().Attach(m.box, 2, 1, 2, 2)
 
+}
+
+func (m *filamentMultitoolPanel) defineToolsCount() int {
+	c, err := (&octoprint.ConnectionRequest{}).Do(m.UI.Printer)
+	if err != nil {
+		Logger.Error(err)
+		return 0
+	}
+
+	profile, err := (&octoprint.PrinterProfilesRequest{Id: c.Current.PrinterProfile}).Do(m.UI.Printer)
+	if err != nil {
+		Logger.Error(err)
+		return 0
+	}
+
+	if profile.Extruder.SharedNozzle {
+		return 1
+	}
+
+	return profile.Extruder.Count
 }
 
 func (m *filamentMultitoolPanel) updateTemperatures() {

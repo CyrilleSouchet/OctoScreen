@@ -852,8 +852,9 @@ type PrinterProfilesResponse struct {
 }
 
 type PrinterProfile struct {
-	Id   string `json:"id"`
-	Name string `json:"name"`
+	HeatedBed bool   `json:"heatedBed"`
+	Id        string `json:"id"`
+	Name      string `json:"name"`
 
 	Volume struct {
 		FormFactor string  `json:"formFactor"`

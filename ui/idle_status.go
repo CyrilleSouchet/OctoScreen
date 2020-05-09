@@ -70,6 +70,7 @@ func (m *idleStatusPanel) update() {
 
 func (m *idleStatusPanel) showTools() {
 	toolsCount := m.defineToolsCount()
+	heatedBed := m.defineHeatedBed()
 
 	m.tool0 = ToolHeatupNew(0, m.UI.Printer)
 	m.tool1 = ToolHeatupNew(1, m.UI.Printer)
@@ -86,23 +87,31 @@ func (m *idleStatusPanel) showTools() {
 		m.Grid().Attach(g, 1, 0, 2, 3)
 
 		g.Attach(m.tool0, 1, 0, 2, 1)
-		g.Attach(m.bed, 1, 1, 2, 1)
+		if heatedBed {
+			g.Attach(m.bed, 1, 1, 2, 1)
+		}
 
 	case 2:
 		m.Grid().Attach(m.tool0, 1, 0, 2, 1)
 		m.Grid().Attach(m.tool1, 1, 1, 2, 1)
-		m.Grid().Attach(m.bed, 1, 2, 2, 1)
+		if heatedBed {
+			m.Grid().Attach(m.bed, 1, 2, 2, 1)
+		}
 	case 3:
 		m.Grid().Attach(m.tool0, 1, 0, 1, 1)
 		m.Grid().Attach(m.tool1, 2, 0, 1, 1)
 		m.Grid().Attach(m.tool2, 1, 1, 2, 1)
-		m.Grid().Attach(m.bed, 1, 2, 2, 1)
+		if heatedBed {
+			m.Grid().Attach(m.bed, 1, 2, 2, 1)
+		}
 	case 4:
 		m.Grid().Attach(m.tool0, 1, 0, 1, 1)
 		m.Grid().Attach(m.tool1, 2, 0, 1, 1)
 		m.Grid().Attach(m.tool2, 1, 1, 1, 1)
 		m.Grid().Attach(m.tool3, 2, 1, 1, 1)
-		m.Grid().Attach(m.bed, 1, 2, 2, 1)
+		if heatedBed {
+			m.Grid().Attach(m.bed, 1, 2, 2, 1)
+		}
 	}
 
 }
@@ -128,6 +137,22 @@ func (m *idleStatusPanel) updateTemperature() {
 			m.tool3.SetTemperatures(s.Actual, s.Target)
 		}
 	}
+}
+
+func (m *idleStatusPanel) defineHeatedBed() bool {
+	c, err := (&octoprint.ConnectionRequest{}).Do(m.UI.Printer)
+	if err != nil {
+		Logger.Error(err)
+		return true
+	}
+
+	profile, err := (&octoprint.PrinterProfilesRequest{Id: c.Current.PrinterProfile}).Do(m.UI.Printer)
+	if err != nil {
+		Logger.Error(err)
+		return true
+	}
+
+	return profile.HeatedBed
 }
 
 func (m *idleStatusPanel) defineToolsCount() int {
