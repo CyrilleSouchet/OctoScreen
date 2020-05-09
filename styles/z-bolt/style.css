@@ -50,7 +50,11 @@ button {
 }
 
 button:active {
-	background-color: #304C62;
+	/*background-color: #304C62;*/
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-image: url("images/selected.png");
 }
 
 button.color1 {
@@ -70,7 +74,11 @@ button.color4 {
 }
 
 button.active {
-	background-color: #20303D;
+	/*background-color: #20303D;*/
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-image: url("images/selected.png");
 }
 
 button.file-list {
