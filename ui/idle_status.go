@@ -194,7 +194,7 @@ func ToolHeatupNew(num int, printer *octoprint.Client) *ToolHeatup {
 		image = "bed.svg"
 		tool = "bed"
 	} else {
-		image = fmt.Sprintf("extruder-%d.svg", num+1)
+		image = fmt.Sprintf("tool%d.svg", num+1)
 		tool = fmt.Sprintf("tool%d", num)
 	}
 

@@ -129,7 +129,7 @@ func (m *printStatusPanel) createInfoBox() *gtk.Box {
 }
 
 func (m *printStatusPanel) createToolButton(num int) *gtk.Button {
-	name := fmt.Sprintf("extruder-%d.svg", num+1)
+	name := fmt.Sprintf("tool%d.svg", num+1)
 	b := MustButtonImage("", name, func() {})
 
 	ctx, _ := b.GetStyleContext()
