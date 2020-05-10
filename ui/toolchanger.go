@@ -28,16 +28,44 @@ func ToolchangerPanel(ui *UI, parent Panel) Panel {
 
 func (m *toolchangerPanel) initialize() {
 	defer m.Initialize()
+	toolsCount := m.defineToolsCount()
+
 	m.Grid().Attach(m.createChangeToolButton(0), 1, 0, 1, 1)
-	m.Grid().Attach(m.createChangeToolButton(1), 2, 0, 1, 1)
-	m.Grid().Attach(m.createChangeToolButton(2), 3, 0, 1, 1)
-	m.Grid().Attach(m.createChangeToolButton(3), 4, 0, 1, 1)
+	if toolsCount >= 2 {
+		m.Grid().Attach(m.createChangeToolButton(1), 2, 0, 1, 1)
+		if toolsCount >= 3 {
+			m.Grid().Attach(m.createChangeToolButton(2), 3, 0, 1, 1)
+			if toolsCount >= 4 {
+				m.Grid().Attach(m.createChangeToolButton(3), 4, 0, 1, 1)
+			}
+		}
+	}
 
 	m.Grid().Attach(m.createHomeButton(), 1, 1, 1, 1)
 
 	//m.Grid().Attach(m.createMagnetOnButton(), 3, 1, 1, 1)
 	//m.Grid().Attach(m.createMagnetOffButton(), 4, 1, 1, 1)
 	m.Grid().Attach(m.createZCalibrationButton(), 2, 2, 1, 1)
+}
+
+func (m *toolchangerPanel) defineToolsCount() int {
+	c, err := (&octoprint.ConnectionRequest{}).Do(m.UI.Printer)
+	if err != nil {
+		Logger.Error(err)
+		return 0
+	}
+
+	profile, err := (&octoprint.PrinterProfilesRequest{Id: c.Current.PrinterProfile}).Do(m.UI.Printer)
+	if err != nil {
+		Logger.Error(err)
+		return 0
+	}
+
+	if profile.Extruder.SharedNozzle {
+		return 1
+	}
+
+	return profile.Extruder.Count
 }
 
 func (m *toolchangerPanel) createZCalibrationButton() gtk.IWidget {
@@ -64,10 +92,12 @@ func (m *toolchangerPanel) createHomeButton() gtk.IWidget {
 
 func (m *toolchangerPanel) createChangeToolButton(num int) gtk.IWidget {
 	style := fmt.Sprintf("color%d", num+1)
-	name := fmt.Sprintf("Tool%d", num+1)
+	name := fmt.Sprintf("Tool%d", num)
 	gcode := fmt.Sprintf("T%d", num)
-	return MustButtonImageStyle(name, "extruder.svg", style, func() {
+	img := fmt.Sprintf("tool%d.svg", num)
+	return MustButtonImageStyle(name, img, style, func() {
 		m.command(gcode)
+		Logger.Infof("Envoi de la commande %s", gcode)
 	})
 }
 
