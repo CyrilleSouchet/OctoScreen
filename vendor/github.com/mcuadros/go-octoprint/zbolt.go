@@ -108,12 +108,13 @@ type GetSettingsRequest struct {
 }
 type GetSettingsResponse struct {
 	// Job contains information regarding the target of the current print job.
-	FilamentInLength  float64    `json:"filament_in_length"`
-	FilamentOutLength float64    `json:"filament_out_length"`
-	ToolChanger       bool       `json:"toolchanger"`
-	ZAxisInverted     bool       `json:"z_axis_inverted"`
-	MenuStructure     []MenuItem `json:"menu_structure"`
-	GCodes            struct {
+	FilamentInLength      float64            `json:"filament_in_length"`
+	FilamentOutLength     float64            `json:"filament_out_length"`
+	ToolChanger           bool               `json:"toolchanger"`
+	ZAxisInverted         bool               `json:"z_axis_inverted"`
+	MenuStructure         []MenuItem         `json:"menu_structure"`
+	ApplicationsStructure []ApplicationsItem `json:"applications_menu"`
+	GCodes                struct {
 		AutoBedLevel string `json:"auto_bed_level"`
 	} `json:"gcodes"`
 }
@@ -144,4 +145,10 @@ type MenuItem struct {
 	Icon  string     `json:"icon"`
 	Panel string     `json:"panel"`
 	Items []MenuItem `json:"items"`
+}
+
+type ApplicationsItem struct {
+	Name  string `json:"name"`
+	Icon  string `json:"icon"`
+	Gcode string `json:"gcode"`
 }

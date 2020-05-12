@@ -105,6 +105,26 @@ func (m *CommonPanel) arrangeMenuItems(grid *gtk.Grid, items []octoprint.MenuIte
 	}
 }
 
+func (m *CommonPanel) arrangeApplicationsItems(grid *gtk.Grid, items []octoprint.ApplicationsItem, cols int) {
+	for i, item := range items {
+		color := fmt.Sprintf("color%d", (i%4)+1)
+		icon := fmt.Sprintf("%s.svg", item.Icon)
+		gcode := item.Gcode
+
+		grid.Attach(MustButtonImageStyle(item.Name, icon, color, func() {
+			//Logger.Debug(fmt.Sprintf("Envoi du gcode %s", gcode))
+			cmd := &octoprint.CommandRequest{}
+			cmd.Commands = []string{gcode}
+
+			Logger.Info(fmt.Sprintf("Envoi du gcode %s", gcode))
+			if err := cmd.Do(m.UI.Printer); err != nil {
+				Logger.Error(err)
+				return
+			}
+		}), (i%cols)+1, i/cols, 1, 1)
+	}
+}
+
 func (m *CommonPanel) command(gcode string) error {
 	cmd := &octoprint.CommandRequest{}
 	cmd.Commands = []string{gcode}

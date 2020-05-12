@@ -43,8 +43,21 @@ func (m *toolchangerPanel) initialize() {
 
 	m.Grid().Attach(m.createHomeButton(), 1, 1, 1, 1)
 
-	//m.Grid().Attach(m.createMagnetOnButton(), 3, 1, 1, 1)
-	//m.Grid().Attach(m.createMagnetOffButton(), 4, 1, 1, 1)
+	if m.UI.Settings == nil || len(m.UI.Settings.MenuStructure) == 0 {
+		Logger.Info("Loading default menu")
+	} else {
+		var menuItems []octoprint.ApplicationsItem
+		menuItems = m.UI.Settings.ApplicationsStructure
+		buttons := MustGrid()
+		buttons.SetRowHomogeneous(true)
+		buttons.SetColumnHomogeneous(true)
+		m.Grid().Attach(buttons, 3, 0, 2, 2)
+		m.arrangeApplicationsItems(buttons, menuItems, 1)
+
+	}
+
+	//m.Grid().Attach(m.createUSBOnButton(), 3, 1, 1, 1)
+	//m.Grid().Attach(m.createUSBOffButton(), 4, 1, 1, 1)
 	m.Grid().Attach(m.createZCalibrationButton(), 2, 2, 1, 1)
 }
 
@@ -101,12 +114,12 @@ func (m *toolchangerPanel) createChangeToolButton(num int) gtk.IWidget {
 	})
 }
 
-func (m *toolchangerPanel) createMagnetOnButton() gtk.IWidget {
-	return MustButtonImageStyle("Magnet On", "magnet-on.svg", "color4", func() {
+func (m *toolchangerPanel) createUSBOnButton() gtk.IWidget {
+	return MustButtonImageStyle("USB On", "usb.svg", "color4", func() {
 		cmd := &octoprint.CommandRequest{}
-		cmd.Commands = []string{"SET_PIN PIN=sol VALUE=1"}
+		cmd.Commands = []string{"OCTO1"}
 
-		Logger.Info("Turn on magnet")
+		Logger.Info("USB On")
 		if err := cmd.Do(m.UI.Printer); err != nil {
 			Logger.Error(err)
 			return
@@ -114,12 +127,13 @@ func (m *toolchangerPanel) createMagnetOnButton() gtk.IWidget {
 	})
 }
 
-func (m *toolchangerPanel) createMagnetOffButton() gtk.IWidget {
-	return MustButtonImageStyle("Magnet Off", "magnet-off.svg", "color3", func() {
+func (m *toolchangerPanel) createUSBOffButton() gtk.IWidget {
+	return MustButtonImageStyle("USB Off", "usb.svg", "color3", func() {
 		cmd := &octoprint.CommandRequest{}
-		cmd.Commands = []string{"SET_PIN PIN=sol VALUE=0"}
+		//cmd.Commands = []string{"SET_PIN PIN=sol VALUE=0"}
+		cmd.Commands = []string{"OCTO2"}
 
-		Logger.Info("Turn off magnet")
+		Logger.Info("USB Off")
 		if err := cmd.Do(m.UI.Printer); err != nil {
 			Logger.Error(err)
 			return
