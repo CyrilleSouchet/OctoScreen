@@ -6,7 +6,7 @@ import (
 )
 
 const URIZBoltRequest = "/api/plugin/zbolt"
-const URIZBoltOctoScreenRequest = "/api/plugin/zbolt_octoscreen"
+const URIConfiguratorOctoScreenRequest = "/api/plugin/configurator_octoscreen"
 
 type RunZOffsetCalibrationRequest struct {
 	Command string `json:"command"`
@@ -90,7 +90,7 @@ func (cmd *GetNotificationRequest) Do(c *Client) (*GetNotificationResponse, erro
 		return nil, err
 	}
 
-	b, err := c.doJSONRequest("POST", URIZBoltOctoScreenRequest, params, ConnectionErrors)
+	b, err := c.doJSONRequest("POST", URIConfiguratorOctoScreenRequest, params, ConnectionErrors)
 	if err != nil {
 		return nil, err
 	}
@@ -126,7 +126,7 @@ func (cmd *GetSettingsRequest) Do(c *Client) (*GetSettingsResponse, error) {
 		return nil, err
 	}
 
-	b, err := c.doJSONRequest("POST", URIZBoltOctoScreenRequest, params, ConnectionErrors)
+	b, err := c.doJSONRequest("POST", URIConfiguratorOctoScreenRequest, params, ConnectionErrors)
 	if err != nil {
 		return nil, err
 	}
