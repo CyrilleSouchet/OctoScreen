@@ -43,7 +43,7 @@ func (m *toolchangerPanel) initialize() {
 
 	m.Grid().Attach(m.createHomeButton(), 1, 1, 1, 1)
 
-	if m.UI.Settings == nil || len(m.UI.Settings.MenuStructure) == 0 {
+	if m.UI.Settings == nil || len(m.UI.Settings.ApplicationsStructure) == 0 {
 		Logger.Info("Loading default menu")
 	} else {
 		var menuItems []octoprint.ApplicationsItem
