@@ -30,8 +30,8 @@ func getPanel(ui *UI, parent Panel, item octoprint.MenuItem) Panel {
 		return NetworkPanel(ui, parent)
 	case "move":
 		return MovePanel(ui, parent)
-	case "toolchanger":
-		return ToolchangerPanel(ui, parent)
+	case "customtool":
+		return CustomToolPanel(ui, parent)
 	case "system":
 		return SystemPanel(ui, parent)
 	case "fan":
@@ -106,10 +106,10 @@ func getDeafultMenu() []octoprint.MenuItem {
 					"panel": "control"
 				},
 				{
-					"name": "ToolChanger",
-					"icon": "toolchanger",
-					"panel": "toolchanger"
-				}
+                "name": "Custom Action",
+                "icon": "add-on",
+                "panel": "customtool"
+            }
 			]
 		},
 		{
