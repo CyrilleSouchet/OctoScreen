@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/Z-Bolt/OctoScreen/ui"
+	"github.com/CyrilleSouchet/OctoScreen/ui"
 	"github.com/gotk3/gotk3/gtk"
 	"gopkg.in/yaml.v1"
 )
@@ -45,6 +45,7 @@ func init() {
 		if cfg.Server.Host != "" {
 			BaseURL = fmt.Sprintf("http://%s:%d", cfg.Server.Host, cfg.Server.Port)
 		} else {
+			//BaseURL = "http://192.168.0.250"
 			BaseURL = "http://0.0.0.0:5000"
 		}
 	}
@@ -56,7 +57,9 @@ func init() {
 		APIKey = cfg.API.Key
 		if cfg.API.Key != "" {
 			ui.Logger.Infof("Found API key at %q file", ConfigFile)
-		}
+		} /* else {
+			APIKey = "E5237FFC5846463E9741347B284E08B1"
+		}*/
 	}
 }
 
