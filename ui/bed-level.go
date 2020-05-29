@@ -39,6 +39,9 @@ func (m *bedLevelPanel) initialize() {
 	if m.UI.Settings != nil && m.UI.Settings.GCodes.AutoBedLevel != "" {
 		m.Grid().Attach(m.createAutoLevelButton(m.UI.Settings.GCodes.AutoBedLevel), 4, 0, 1, 1)
 	}
+
+	//m.back = MustButtonImage("Retour", "back.svg", m.UI.GoHistory)
+	//m.Grid().Attach(m.back, 4, 1, 1, 1)
 }
 
 func (m *bedLevelPanel) defineLevelingPoints() {
@@ -108,7 +111,7 @@ func (m *bedLevelPanel) goHomeIfRequire() {
 }
 
 func (m *bedLevelPanel) createAutoLevelButton(gcode string) *gtk.Button {
-	b := MustButtonImage("Auto Level", "bed-level.svg", func() {
+	b := MustButtonImage("Niveau automatique", "bed-level.svg", func() {
 		cmd := &octoprint.CommandRequest{}
 		cmd.Commands = []string{
 			gcode,

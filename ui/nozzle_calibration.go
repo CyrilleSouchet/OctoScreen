@@ -53,6 +53,9 @@ func (m *nozzleCalibrationPanel) initialize() {
 	m.Grid().Attach(m.createZCalibrationModeButton(), 1, 2, 1, 1)
 	m.Grid().Attach(m.createAutoZCalibrationButton(), 2, 2, 2, 1)
 
+	//m.back = MustButtonImage("Retour", "back.svg", m.UI.GoHistory)
+	//m.Grid().Attach(m.back, 4, 1, 1, 1)
+
 }
 
 func (m *nozzleCalibrationPanel) createZCalibrationModeButton() gtk.IWidget {
@@ -76,7 +79,7 @@ func (m *nozzleCalibrationPanel) createZCalibrationModeButton() gtk.IWidget {
 			m.updateZOffset(0)
 		} else {
 			ctx.RemoveClass("active")
-			m.labZOffsetLabel.SetText("Press \"Z Offset\"\nbutton to start\nZ-Offset calibration")
+			m.labZOffsetLabel.SetText("Appuyez sur le bouton \"Z Offset \"\n pour démarrer \n la calibration")
 		}
 	}
 
@@ -84,7 +87,7 @@ func (m *nozzleCalibrationPanel) createZCalibrationModeButton() gtk.IWidget {
 }
 
 func (m *nozzleCalibrationPanel) createAutoZCalibrationButton() gtk.IWidget {
-	return MustButtonImageStyle("Auto Z Calibration", "z-calibration.svg", "color3", func() {
+	return MustButtonImageStyle("Calibration Z Auto", "z-calibration.svg", "color3", func() {
 		if m.zCalibrationMode {
 			return
 		}
@@ -97,7 +100,7 @@ func (m *nozzleCalibrationPanel) createAutoZCalibrationButton() gtk.IWidget {
 }
 
 func (m *nozzleCalibrationPanel) createIncreaseOffsetButton() gtk.IWidget {
-	return MustButtonImage("Bed Down", "z-offset-increase.svg", func() {
+	return MustButtonImage("Descendre", "z-offset-increase.svg", func() {
 		if !m.zCalibrationMode {
 			return
 		}
@@ -106,7 +109,7 @@ func (m *nozzleCalibrationPanel) createIncreaseOffsetButton() gtk.IWidget {
 }
 
 func (m *nozzleCalibrationPanel) createDecreaseOffsetButton() gtk.IWidget {
-	return MustButtonImage("Bed Up", "z-offset-decrease.svg", func() {
+	return MustButtonImage("Monter", "z-offset-decrease.svg", func() {
 		if !m.zCalibrationMode {
 			return
 		}

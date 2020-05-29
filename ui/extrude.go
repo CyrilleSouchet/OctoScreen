@@ -39,8 +39,8 @@ func ExtrudePanel(ui *UI, parent Panel) Panel {
 func (m *extrudePanel) initialize() {
 	defer m.Initialize()
 
-	m.Grid().Attach(m.createExtrudeButton("Extrude", "extrude.svg", 1), 1, 0, 1, 1)
-	m.Grid().Attach(m.createExtrudeButton("Retract", "retract.svg", -1), 4, 0, 1, 1)
+	m.Grid().Attach(m.createExtrudeButton("Extruder", "extrude.svg", 1), 1, 0, 1, 1)
+	m.Grid().Attach(m.createExtrudeButton("Rétracter", "retract.svg", -1), 4, 0, 1, 1)
 
 	m.box = MustBox(gtk.ORIENTATION_VERTICAL, 5)
 	m.box.SetVAlign(gtk.ALIGN_CENTER)
@@ -52,6 +52,9 @@ func (m *extrudePanel) initialize() {
 
 	m.Grid().Attach(m.createToolButton(), 1, 1, 1, 1)
 	m.Grid().Attach(m.createFlowrateButton(), 3, 1, 1, 1)
+
+	//m.back = MustButtonImage("Retour", "back.svg", m.UI.GoHistory)
+	//m.Grid().Attach(m.back, 4, 1, 1, 1)
 }
 
 func (m *extrudePanel) updateTemperatures() {
@@ -118,7 +121,7 @@ func (m *extrudePanel) createToolButton() *StepButton {
 }
 
 func (m *extrudePanel) createFlowrateButton() *StepButton {
-	b := MustStepButton("speed-step.svg", Step{"Slow", 75}, Step{"Normal", 100}, Step{"High", 125})
+	b := MustStepButton("speed-step.svg", Step{"Lent", 75}, Step{"Normal", 100}, Step{"Rapide", 125})
 	b.Callback = func() {
 		cmd := &octoprint.ToolFlowrateRequest{}
 		cmd.Factor = b.Value().(int)
@@ -140,7 +143,7 @@ func (m *extrudePanel) createLoadButton() gtk.IWidget {
 		length = m.UI.Settings.FilamentInLength
 	}
 
-	return MustButtonImage("Load", "extrude.svg", func() {
+	return MustButtonImage("Charger", "extrude.svg", func() {
 		cmd := &octoprint.CommandRequest{}
 		cmd.Commands = []string{
 			"G91",
@@ -165,7 +168,7 @@ func (m *extrudePanel) createUnloadButton() gtk.IWidget {
 		length = m.UI.Settings.FilamentOutLength
 	}
 
-	return MustButtonImage("Unload", "retract.svg", func() {
+	return MustButtonImage("Décharger", "retract.svg", func() {
 		cmd := &octoprint.CommandRequest{}
 		cmd.Commands = []string{
 			"G91",

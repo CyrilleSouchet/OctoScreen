@@ -51,7 +51,7 @@ func (m *filamentMultitoolPanel) initialize() {
 	m.Grid().Attach(m.createLoadButton(), 1, 1, 1, 1)
 	m.Grid().Attach(m.createUnloadButton(), 4, 1, 1, 1)
 
-	m.Grid().Attach(MustButtonImageStyle("Temperature", "heat-up.svg", "color4", m.showTemperature), 1, 2, 1, 1)
+	m.Grid().Attach(MustButtonImageStyle("Température", "heat-up.svg", "color4", m.showTemperature), 1, 2, 1, 1)
 
 	m.box = MustBox(gtk.ORIENTATION_VERTICAL, 5)
 	m.box.SetVAlign(gtk.ALIGN_CENTER)
@@ -134,7 +134,7 @@ func (m *filamentMultitoolPanel) createLoadButton() gtk.IWidget {
 		length = m.UI.Settings.FilamentInLength
 	}
 
-	return MustButtonImageStyle("Load", "extrude.svg", "color3", func() {
+	return MustButtonImageStyle("Charger", "extrude.svg", "color3", func() {
 		cmd := &octoprint.CommandRequest{}
 		cmd.Commands = []string{
 			"G91",
@@ -158,7 +158,7 @@ func (m *filamentMultitoolPanel) createUnloadButton() gtk.IWidget {
 		length = m.UI.Settings.FilamentOutLength
 	}
 
-	return MustButtonImageStyle("Unload", "extrude.svg", "color2", func() {
+	return MustButtonImageStyle("Décharger", "extrude.svg", "color2", func() {
 		cmd := &octoprint.CommandRequest{}
 		cmd.Commands = []string{
 			"G91",

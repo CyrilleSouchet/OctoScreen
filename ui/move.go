@@ -45,6 +45,9 @@ func (m *movePanel) initialize() {
 	m.Grid().Attach(m.step, 3, 2, 1, 1)
 
 	m.Grid().Attach(m.createHomeButton(), 1, 2, 1, 1)
+
+	//m.back = MustButtonImage("Retour", "back.svg", m.UI.GoHistory)
+	//m.Grid().Attach(m.back, 4, 2, 1, 1)
 }
 
 func (m *movePanel) createMoveButton(label, image string, a octoprint.Axis, dir float64) gtk.IWidget {
@@ -71,7 +74,7 @@ func (m *movePanel) createMoveButton(label, image string, a octoprint.Axis, dir 
 }
 
 func (m *movePanel) createHomeButton() gtk.IWidget {
-	return MustButtonImage("Home All", "home.svg", func() {
+	return MustButtonImage("Origines", "home.svg", func() {
 		cmd := &octoprint.CommandRequest{}
 		cmd.Commands = []string{
 			"G28",

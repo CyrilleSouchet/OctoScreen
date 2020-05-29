@@ -50,19 +50,22 @@ func (m *extrudeMultitoolPanel) initialize() {
 		}
 	}
 
-	m.Grid().Attach(m.createExtrudeButton("Extrude", "extrude.svg", 1), 1, 1, 1, 1)
-	m.Grid().Attach(m.createExtrudeButton("Retract", "retract.svg", -1), 4, 1, 1, 1)
+	m.Grid().Attach(m.createExtrudeButton("Extruder", "extrude.svg", 1), 1, 1, 1, 1)
+	m.Grid().Attach(m.createExtrudeButton("Rétracter", "retract.svg", -1), 4, 1, 1, 1)
 
 	m.box = MustBox(gtk.ORIENTATION_VERTICAL, 5)
 	m.box.SetVAlign(gtk.ALIGN_CENTER)
 	m.box.SetHAlign(gtk.ALIGN_CENTER)
 	m.Grid().Attach(m.box, 2, 1, 2, 1)
 
-	m.Grid().Attach(MustButtonImageStyle("Temperature", "heat-up.svg", "color4", m.showTemperature), 1, 2, 1, 1)
+	m.Grid().Attach(MustButtonImageStyle("Température", "heat-up.svg", "color4", m.showTemperature), 1, 2, 1, 1)
 	m.amount = MustStepButton("move-step.svg", Step{"1mm", 1}, Step{"5mm", 5}, Step{"10mm", 10})
 	m.Grid().Attach(m.amount, 2, 2, 1, 1)
 
 	m.Grid().Attach(m.createFlowrateButton(), 3, 2, 1, 1)
+
+	//m.back = MustButtonImage("Retour", "back.svg", m.UI.GoHistory)
+	//m.Grid().Attach(m.back, 4, 2, 1, 1)
 }
 
 func (m *extrudeMultitoolPanel) defineToolsCount() int {
@@ -132,7 +135,7 @@ func (m *extrudeMultitoolPanel) loadTemperatureData(tool string, d *octoprint.Te
 }
 
 func (m *extrudeMultitoolPanel) createFlowrateButton() *StepButton {
-	b := MustStepButton("speed-step.svg", Step{"Slow", 75}, Step{"Normal", 100}, Step{"High", 125})
+	b := MustStepButton("speed-step.svg", Step{"Lent", 75}, Step{"Normal", 100}, Step{"Rapide", 125})
 	b.Callback = func() {
 		cmd := &octoprint.ToolFlowrateRequest{}
 		cmd.Factor = b.Value().(int)
@@ -154,7 +157,7 @@ func (m *extrudeMultitoolPanel) createLoadButton() gtk.IWidget {
 		length = m.UI.Settings.FilamentInLength
 	}
 
-	return MustButtonImage("Load", "extrude.svg", func() {
+	return MustButtonImage("Charger", "extrude.svg", func() {
 		cmd := &octoprint.CommandRequest{}
 		cmd.Commands = []string{
 			"G91",
@@ -179,7 +182,7 @@ func (m *extrudeMultitoolPanel) createUnloadButton() gtk.IWidget {
 		length = m.UI.Settings.FilamentOutLength
 	}
 
-	return MustButtonImage("Unload", "retract.svg", func() {
+	return MustButtonImage("Décharger", "retract.svg", func() {
 		cmd := &octoprint.CommandRequest{}
 		cmd.Commands = []string{
 			"G91",

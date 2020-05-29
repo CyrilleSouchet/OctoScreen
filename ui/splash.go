@@ -43,18 +43,18 @@ func (m *SplashPanel) createActionBar() gtk.IWidget {
 	bar := MustBox(gtk.ORIENTATION_HORIZONTAL, 5)
 	bar.SetHAlign(gtk.ALIGN_END)
 
-	m.RetryButton = MustButtonImageStyle("Retry", "refresh.svg", "color2", m.releaseFromHold)
+	m.RetryButton = MustButtonImageStyle("Réessayez", "refresh.svg", "color2", m.releaseFromHold)
 	m.RetryButton.SetProperty("width-request", m.Scaled(100))
 	m.RetryButton.SetProperty("visible", true)
 	bar.Add(m.RetryButton)
 	ctx, _ := m.RetryButton.GetStyleContext()
 	ctx.AddClass("hidden")
 
-	sys := MustButtonImageStyle("System", "info.svg", "color3", m.showSystem)
+	sys := MustButtonImageStyle("Système", "info.svg", "color3", m.showSystem)
 	sys.SetProperty("width-request", m.Scaled(100))
 	bar.Add(sys)
 
-	net := MustButtonImageStyle("Network", "network.svg", "color4", m.showNetwork)
+	net := MustButtonImageStyle("Réseau", "network.svg", "color4", m.showNetwork)
 	net.SetProperty("width-request", m.Scaled(100))
 	bar.Add(net)
 
@@ -65,7 +65,7 @@ func (m *SplashPanel) putOnHold() {
 	m.RetryButton.Show()
 	ctx, _ := m.RetryButton.GetStyleContext()
 	ctx.RemoveClass("hidden")
-	m.Label.SetText("Cannot connect initialize the printer. Tap \"Retry\" to try again.")
+	m.Label.SetText("Connexion impossible à l'imprimante. Appuyez sur \"Réessayer \" pour relancer.")
 }
 
 func (m *SplashPanel) releaseFromHold() {
@@ -73,7 +73,7 @@ func (m *SplashPanel) releaseFromHold() {
 	ctx, _ := m.RetryButton.GetStyleContext()
 	ctx.AddClass("hidden")
 
-	m.Label.SetText("Loading...")
+	m.Label.SetText("chargement...")
 	m.UI.connectionAttempts = 0
 }
 

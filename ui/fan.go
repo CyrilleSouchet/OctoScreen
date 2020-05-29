@@ -35,6 +35,9 @@ func (m *fanPanel) initialize() {
 	m.Grid().Attach(m.createFanButton(25), 3, 0, 1, 1)
 
 	m.Grid().Attach(m.createFanButton(0), 0, 1, 1, 1)
+
+	//m.back = MustButtonImage("Retour", "back.svg", m.UI.GoHistory)
+	//m.Grid().Attach(m.back, 3, 1, 1, 1)
 }
 
 func (m *fanPanel) createFanButton(speed int) gtk.IWidget {
@@ -46,7 +49,7 @@ func (m *fanPanel) createFanButton(speed int) gtk.IWidget {
 	)
 
 	if speed == 0 {
-		label = "Fan Off"
+		label = "Couper\nle ventilateur"
 		image = "fan-off.svg"
 		color = "color2"
 	} else {

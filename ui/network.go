@@ -53,10 +53,10 @@ func (m *networkPanel) update() {
 		wifiStatus := "No Wifi Connection"
 
 		if s.WPAState() == "COMPLETED" {
-			wifiStatus = fmt.Sprintf("Wifi Information\nSSID: %s\nIP Address: %s\n",
+			wifiStatus = fmt.Sprintf("Information Wifi \nSSID: %s\nIP Adresse: %s\n",
 				s.SSID(), s.IPAddr())
 		} else {
-			wifiStatus = fmt.Sprintf("Wifi status is: %s\n", s.WPAState())
+			wifiStatus = fmt.Sprintf("Statut du Wifi: %s\n", s.WPAState())
 		}
 
 		m.wifiStatus.SetText(wifiStatus)
@@ -69,7 +69,7 @@ func (m *networkPanel) update() {
 		wpa.Scan()
 
 	} else {
-		m.list.Add(MustLabel("\n\nWifi management is not available\non this hardware"))
+		m.list.Add(MustLabel("\n\nLa gestion du Wifi n'est pas \ndisponible sur ce matériel"))
 	}
 
 	m.list.ShowAll()
@@ -147,7 +147,7 @@ func (m *networkPanel) createInfoBar() gtk.IWidget {
 	info.SetMarginEnd(25)
 	info.SetMarginStart(25)
 
-	t1 := MustLabel("<b>Network Information</b>")
+	t1 := MustLabel("<b>Information Réseau</b>")
 	t1.SetHAlign(gtk.ALIGN_START)
 	t1.SetMarginTop(25)
 
@@ -209,7 +209,7 @@ func (m *connectionPanel) initialize() {
 
 func (m *connectionPanel) setSSID(SSID string) {
 	m.SSID = SSID
-	m.SSIDLabel.SetText(fmt.Sprintf("Enter password for \"%s\": ", strEllipsisLen(m.SSID, 18)))
+	m.SSIDLabel.SetText(fmt.Sprintf("Entrez le mot de passe pour \"%s\": ", strEllipsisLen(m.SSID, 18)))
 }
 
 func (m *connectionPanel) createTopBar() gtk.IWidget {
@@ -222,7 +222,7 @@ func (m *connectionPanel) createTopBar() gtk.IWidget {
 	top.SetHExpand(true)
 	top.SetMarginStart(25)
 	top.SetHAlign(gtk.ALIGN_START)
-	m.SSIDLabel = MustLabel(fmt.Sprintf("Pass for %s: ", m.SSID))
+	m.SSIDLabel = MustLabel(fmt.Sprintf("Passe pour %s: ", m.SSID))
 	top.Add(m.SSIDLabel)
 	top.Add(m.pass)
 

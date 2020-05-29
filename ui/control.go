@@ -52,6 +52,9 @@ func (m *controlPanel) initialize() {
 		b := m.createCommandButton(c, "custom-script")
 		m.AddButton(b)
 	}
+
+	//m.back = MustButtonImage("Retour", "back.svg", m.UI.GoHistory)
+	//m.AddButton(m.back)
 }
 
 func (m *controlPanel) getCustomControl() []*octoprint.ControlDefinition {

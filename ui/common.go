@@ -55,7 +55,7 @@ func (p *CommonPanel) Initialize() {
 		p.AddButton(MustBox(gtk.ORIENTATION_HORIZONTAL, 0))
 	}
 
-	p.back = MustButtonImage("Back", "back.svg", p.UI.GoHistory)
+	p.back = MustButtonImage("Retour", "back.svg", p.UI.GoHistory)
 	p.AddButton(p.back)
 }
 

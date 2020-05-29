@@ -82,7 +82,7 @@ func (m *printStatusPanel) showTools() {
 }
 
 func (m *printStatusPanel) createCompleteButton() *gtk.Button {
-	m.complete = MustButtonImageStyle("Complete", "complete.svg", "color3", func() {
+	m.complete = MustButtonImageStyle("Terminé", "complete.svg", "color3", func() {
 		m.UI.Add(IdleStatusPanel(m.UI))
 	})
 	return m.complete
@@ -162,13 +162,13 @@ func (m *printStatusPanel) createPauseButton() gtk.IWidget {
 
 func (m *printStatusPanel) createStopButton() gtk.IWidget {
 	m.stop = MustButtonImageStyle("Stop", "stop.svg", "color2",
-		ConfirmStopDialog(m.UI.w, "Are you sure you want to stop current print?", m),
+		ConfirmStopDialog(m.UI.w, "Voulez-vous vraiment arrêter l'impression en cours?", m),
 	)
 	return m.stop
 }
 
 func (m *printStatusPanel) createMenuButton() gtk.IWidget {
-	m.menu = MustButtonImageStyle("Control", "control.svg", "color3", func() {
+	m.menu = MustButtonImageStyle("Contrôle", "control.svg", "color3", func() {
 		m.UI.Add(PrintMenuPanel(m.UI, m))
 	})
 	return m.menu
@@ -218,7 +218,7 @@ func (m *printStatusPanel) doUpdateState(s *octoprint.PrinterState) {
 		m.complete.Hide()
 
 	case s.Flags.Paused:
-		m.pause.SetLabel("Resume")
+		m.pause.SetLabel("Reprendre")
 		m.pause.SetImage(MustImageFromFile("resume.svg"))
 		m.pause.SetSensitive(true)
 		m.stop.SetSensitive(true)
@@ -268,17 +268,17 @@ func (m *printStatusPanel) updateJob() {
 	var timeSpent, timeLeft string
 	switch s.Progress.Completion {
 	case 100:
-		timeSpent = fmt.Sprintf("Completed in %s", time.Duration(int64(s.Job.LastPrintTime)*1e9))
+		timeSpent = fmt.Sprintf("Terminé en %s", time.Duration(int64(s.Job.LastPrintTime)*1e9))
 		timeLeft = ""
 	case 0:
-		timeSpent = "Warming up ..."
+		timeSpent = "Chauffe en cours ..."
 		timeLeft = ""
 	default:
 		Logger.Info(s.Progress.PrintTime)
 		e := time.Duration(int64(s.Progress.PrintTime) * 1e9)
 		r := time.Duration(int64(s.Progress.PrintTimeLeft) * 1e9)
-		timeSpent = fmt.Sprintf("Time: %s", e)
-		timeLeft = fmt.Sprintf("Left: %s", r)
+		timeSpent = fmt.Sprintf("Temps: %s", e)
+		timeLeft = fmt.Sprintf("Reste: %s", r)
 	}
 
 	m.time.Label.SetLabel(timeSpent)

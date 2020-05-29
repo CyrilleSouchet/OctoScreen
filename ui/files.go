@@ -118,7 +118,7 @@ func (m *filesPanel) addFile(b *gtk.Box, f *octoprint.FileInformation) {
 
 	info := MustLabel("")
 	info.SetHAlign(gtk.ALIGN_START)
-	info.SetMarkup(fmt.Sprintf("<small>Uploaded: <b>%s</b> - Size: <b>%s</b></small>",
+	info.SetMarkup(fmt.Sprintf("<small>Envoyé: <b>%s</b> - Taille: <b>%s</b></small>",
 		humanize.Time(f.Date.Time), humanize.Bytes(uint64(f.Size)),
 	))
 
@@ -191,7 +191,7 @@ func (m *filesPanel) addFolder(b *gtk.Box, f *octoprint.FileInformation) {
 func (m *filesPanel) createLoadAndPrintButton(img string, f *octoprint.FileInformation, print bool) gtk.IWidget {
 	b := MustButton(
 		MustImageFromFileWithSize(img, m.Scaled(40), m.Scaled(40)),
-		MustConfirmDialog(m.UI.w, "Are you sure you want to proceed?", func() {
+		MustConfirmDialog(m.UI.w, "Imprimer le modèle 3D?", func() {
 			r := &octoprint.SelectFileRequest{}
 			r.Location = octoprint.Local
 			r.Path = f.Path

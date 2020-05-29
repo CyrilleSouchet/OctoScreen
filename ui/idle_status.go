@@ -55,7 +55,7 @@ func (m *idleStatusPanel) initialize() {
 
 	m.arrangeMenuItems(buttons, menuItems, 2)
 
-	m.Grid().Attach(MustButtonImageStyle("Print", "print.svg", "color2", m.showFiles), 3, 2, 2, 1)
+	m.Grid().Attach(MustButtonImageStyle("Imprimer", "print.svg", "color2", m.showFiles), 3, 2, 2, 1)
 
 	m.showTools()
 }
