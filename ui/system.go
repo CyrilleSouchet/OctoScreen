@@ -38,17 +38,20 @@ func (m *systemPanel) initialize() {
 	m.Grid().Attach(m.createOctoScreenInfo(), 3, 0, 2, 1)
 	m.Grid().Attach(m.createSystemInfo(), 1, 1, 4, 1)
 
-	if b := m.createCommandButton("Octo Restart", "restart", "color2"); b != nil {
+	if b := m.createCommandButton("Redémarrer\nOctoprint", "restart", "color2"); b != nil {
 		m.Grid().Attach(b, 3, 2, 1, 1)
 	}
 
-	if b := m.createCommandButton("Sys Restart", "reboot", "color3"); b != nil {
+	if b := m.createCommandButton("Redémarrer\nle système", "reboot", "color3"); b != nil {
 		m.Grid().Attach(b, 2, 2, 1, 1)
 	}
 
-	if b := m.createCommandButton("Shutdown", "shutdown", "color1"); b != nil {
+	if b := m.createCommandButton("Eteindre", "shutdown", "color1"); b != nil {
 		m.Grid().Attach(b, 1, 2, 1, 1)
 	}
+
+	//m.back = MustButtonImage("Retour", "back.svg", m.UI.GoHistory)
+	//m.Grid().Attach(m.back, 4, 2, 1, 1)
 }
 
 func (m *systemPanel) createOctoPrintInfo() *gtk.Box {
@@ -68,7 +71,7 @@ func (m *systemPanel) createOctoPrintInfo() *gtk.Box {
 	img := MustImageFromFileWithSize("logo-octoprint.png", logoWidth, int(float64(logoWidth)*1.25))
 	info.Add(img)
 
-	info.Add(MustLabel("\nOctoPrint Version"))
+	info.Add(MustLabel("\nVersion d'OctoPrint "))
 	info.Add(MustLabel("<b>%s (%s)</b>", r.Server, r.API))
 	return info
 }
@@ -85,7 +88,7 @@ func (m *systemPanel) createOctoScreenInfo() *gtk.Box {
 
 	img := MustImageFromFileWithSize("logo-z-bolt.svg", logoWidth, int(float64(logoWidth)*0.8))
 	info.Add(img)
-	info.Add(MustLabel("OctoScreen Version"))
+	info.Add(MustLabel("Version d'OctoScreen"))
 	info.Add(MustLabel("<b>%s (%s)</b>", Version, Build))
 	return info
 }
@@ -96,20 +99,20 @@ func (m *systemPanel) createSystemInfo() *gtk.Box {
 	info.SetVExpand(true)
 	info.SetVAlign(gtk.ALIGN_CENTER)
 
-	title := MustLabel("<b>System Information</b>")
+	title := MustLabel("<b>Information du système</b>")
 	title.SetMarginBottom(5)
 	title.SetMarginTop(15)
 	info.Add(title)
 
 	v, _ := mem.VirtualMemory()
 	info.Add(MustLabel(fmt.Sprintf(
-		"Memory Total / Free: <b>%s / %s</b>",
+		"Mémoire totale / libre: <b>%s / %s</b>",
 		humanize.Bytes(v.Total), humanize.Bytes(v.Free),
 	)))
 
 	l, _ := load.Avg()
 	info.Add(MustLabel(fmt.Sprintf(
-		"Load Average: <b>%.2f, %.2f, %.2f</b>",
+		"Charge moyenne: <b>%.2f, %.2f, %.2f</b>",
 		l.Load1, l.Load5, l.Load15,
 	)))
 

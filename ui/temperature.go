@@ -207,6 +207,9 @@ func (m *profilesPanel) loadProfiles() {
 		Bed:      0,
 		Extruder: 0,
 	}))
+
+	//m.back = MustButtonImage("Retour", "back.svg", m.UI.GoHistory)
+	//m.AddButton(m.back)
 }
 
 func (m *profilesPanel) createProfileButton(img string, p *octoprint.TemperatureProfile) gtk.IWidget {
