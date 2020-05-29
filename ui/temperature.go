@@ -41,8 +41,8 @@ func TemperaturePanel(ui *UI, parent Panel) Panel {
 func (m *temperaturePanel) initialize() {
 	defer m.Initialize()
 
-	m.Grid().Attach(m.createChangeButton("Increase", "increase.svg", 1), 1, 0, 1, 1)
-	m.Grid().Attach(m.createChangeButton("Decrease", "decrease.svg", -1), 4, 0, 1, 1)
+	m.Grid().Attach(m.createChangeButton("Augmenter", "increase.svg", 1), 1, 0, 1, 1)
+	m.Grid().Attach(m.createChangeButton("Diminuer", "decrease.svg", -1), 4, 0, 1, 1)
 
 	m.box = MustBox(gtk.ORIENTATION_VERTICAL, 5)
 	m.box.SetVAlign(gtk.ALIGN_CENTER)
@@ -54,7 +54,7 @@ func (m *temperaturePanel) initialize() {
 	m.amount = MustStepButton("move-step.svg", Step{"10°C", 10.}, Step{"5°C", 5.}, Step{"1°C", 1.})
 	m.Grid().Attach(m.amount, 2, 0, 1, 1)
 
-	m.Grid().Attach(MustButtonImage("More", "heat-up.svg", m.profilePanel), 3, 0, 1, 1)
+	m.Grid().Attach(MustButtonImage("Autre", "heat-up.svg", m.profilePanel), 3, 0, 1, 1)
 }
 
 func (m *temperaturePanel) createToolButton() *StepButton {
@@ -203,7 +203,7 @@ func (m *profilesPanel) loadProfiles() {
 	}
 
 	m.AddButton(m.createProfileButton("cool-down.svg", &octoprint.TemperatureProfile{
-		Name:     "Cool Down",
+		Name:     "Refroidir",
 		Bed:      0,
 		Extruder: 0,
 	}))
