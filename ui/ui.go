@@ -124,7 +124,7 @@ func (ui *UI) verifyConnection() {
 	ui.sdNotify("WATCHDOG=1")
 
 	newUiState := "splash"
-	splashMessage := "Initializing..."
+	splashMessage := "Initialisation..."
 
 	s, err := (&octoprint.ConnectionRequest{}).Do(ui.Printer)
 	if err == nil {
@@ -139,7 +139,7 @@ func (ui *UI) verifyConnection() {
 		case s.Current.State.IsOffline():
 			if err := (&octoprint.ConnectRequest{}).Do(ui.Printer); err != nil {
 				newUiState = "splash"
-				splashMessage = "Loading..."
+				splashMessage = "Chargement..."
 			}
 		case s.Current.State.IsConnecting():
 			splashMessage = string(s.Current.State)
@@ -247,11 +247,11 @@ func (ui *UI) GoHistory() {
 func (ui *UI) errToUser(err error) string {
 	text := err.Error()
 	if strings.Contains(text, "connection refused") {
-		return "Unable to connect to OctoPrint, check if it running."
+		return "Impossible de se connecter à OctoPrint, vérifiez s'il fonctionne."
 	} else if strings.Contains(text, "request canceled") {
-		return "Loading..."
+		return "Chargement..."
 	} else if strings.Contains(text, "connection broken") {
-		return "Loading..."
+		return "Chargement..."
 	}
 
 	return fmt.Sprintf("Unexpected error: %s", err)
