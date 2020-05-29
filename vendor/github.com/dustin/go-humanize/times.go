@@ -20,7 +20,7 @@ const (
 //
 // Time(someT) -> "3 weeks ago"
 func Time(then time.Time) string {
-	return RelTime(then, time.Now(), "ago", "from now")
+	return RelTime(then, time.Now(), "depuis", "à partir de maintenant")
 }
 
 // A RelTimeMagnitude struct contains a relative time point at which
@@ -44,24 +44,43 @@ type RelTimeMagnitude struct {
 	DivBy  time.Duration
 }
 
-var defaultMagnitudes = []RelTimeMagnitude{
-	{time.Second, "now", time.Second},
-	{2 * time.Second, "1 second %s", 1},
-	{time.Minute, "%d seconds %s", time.Second},
+/*var defaultMagnitudes = []RelTimeMagnitude{
+	{time.Second, "maintenant", time.Second},
+	{2 * time.Second, "1 seconde %s", 1},
+	{time.Minute, "%d secondes %s", time.Second},
 	{2 * time.Minute, "1 minute %s", 1},
 	{time.Hour, "%d minutes %s", time.Minute},
-	{2 * time.Hour, "1 hour %s", 1},
-	{Day, "%d hours %s", time.Hour},
-	{2 * Day, "1 day %s", 1},
-	{Week, "%d days %s", Day},
-	{2 * Week, "1 week %s", 1},
-	{Month, "%d weeks %s", Week},
-	{2 * Month, "1 month %s", 1},
-	{Year, "%d months %s", Month},
-	{18 * Month, "1 year %s", 1},
-	{2 * Year, "2 years %s", 1},
-	{LongTime, "%d years %s", Year},
-	{math.MaxInt64, "a long while %s", 1},
+	{2 * time.Hour, "1 heure %s", 1},
+	{Day, "%d heures %s", time.Hour},
+	{2 * Day, "1 jour %s", 1},
+	{Week, "%d jours %s", Day},
+	{2 * Week, "1 semaine %s", 1},
+	{Month, "%d semaines %s", Week},
+	{2 * Month, "1 mois %s", 1},
+	{Year, "%d mois %s", Month},
+	{18 * Month, "1 an %s", 1},
+	{2 * Year, "2 ans %s", 1},
+	{LongTime, "%d ans %s", Year},
+	{math.MaxInt64, "il y a longtemps %s", 1},
+}*/
+var defaultMagnitudes = []RelTimeMagnitude{
+	{time.Second, "maintenant", time.Second},
+	{2 * time.Second, "%s 1 seconde", 1},
+	{time.Minute, "%s %d secondes", time.Second},
+	{2 * time.Minute, "%s 1 minute", 1},
+	{time.Hour, "%s %d minutes", time.Minute},
+	{2 * time.Hour, "%s 1 heure", 1},
+	{Day, "%s %d heures", time.Hour},
+	{2 * Day, "%s 1 jour", 1},
+	{Week, "%s %d jours", Day},
+	{2 * Week, "%s 1 semaine", 1},
+	{Month, "%s %d semaines", Week},
+	{2 * Month, "%s 1 mois", 1},
+	{Year, "%s %d mois", Month},
+	{18 * Month, "%s 1 an", 1},
+	{2 * Year, "%s 2 ans", 1},
+	{LongTime, "%s %d ans", Year},
+	{math.MaxInt64, "%s il y a longtemps", 1},
 }
 
 // RelTime formats a time into a relative string.

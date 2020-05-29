@@ -158,7 +158,7 @@ func (m *filesPanel) addFolder(b *gtk.Box, f *octoprint.FileInformation) {
 
 	info := MustLabel("")
 	info.SetHAlign(gtk.ALIGN_START)
-	info.SetMarkup(fmt.Sprintf("<small>Size: <b>%s</b></small>",
+	info.SetMarkup(fmt.Sprintf("<small>Taille: <b>%s</b></small>",
 		humanize.Bytes(uint64(f.Size)),
 	))
 
