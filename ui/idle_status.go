@@ -40,13 +40,13 @@ func (m *idleStatusPanel) initialize() {
 
 	Logger.Info(m.UI.Settings)
 
-	if m.UI.Settings == nil || len(m.UI.Settings.MenuStructure) == 0 {
-		Logger.Info("Loading default menu")
-		menuItems = getDeafultMenu()
-	} else {
-		Logger.Info("Loading octo menu")
-		menuItems = m.UI.Settings.MenuStructure
-	}
+	//if m.UI.Settings == nil || len(m.UI.Settings.MenuStructure) == 0 {
+	Logger.Info("Loading default menu")
+	menuItems = getDeafultMenu()
+	//} else {
+	//	Logger.Info("Loading octo menu")
+	//	menuItems = m.UI.Settings.MenuStructure
+	//}
 
 	buttons := MustGrid()
 	buttons.SetRowHomogeneous(true)
