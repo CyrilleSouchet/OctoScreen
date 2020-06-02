@@ -22,7 +22,7 @@ func (m *SplashPanel) initialize() {
 	m.Label.SetHExpand(true)
 	m.Label.SetLineWrap(true)
 	m.Label.SetMaxWidthChars(30)
-	m.Label.SetText("Initializing printer...")
+	m.Label.SetText("Initialisation de l'imprimante...")
 
 	main := MustBox(gtk.ORIENTATION_VERTICAL, 15)
 	main.SetVAlign(gtk.ALIGN_END)
