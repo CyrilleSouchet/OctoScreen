@@ -208,8 +208,8 @@ func (m *UI) update() {
 	}
 
 	if m.OctoPrintPlugin {
-		m.checkNotification()
-		m.loadSettings()
+		//m.checkNotification()
+		//m.loadSettings()
 	}
 
 	m.verifyConnection()
