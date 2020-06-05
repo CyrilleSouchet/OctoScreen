@@ -117,7 +117,7 @@ func (ui *UI) loadStyle() {
 	gtk.AddProviderForScreen(s, p, gtk.STYLE_PROVIDER_PRIORITY_USER)
 }
 
-var errMercyPeriod = time.Second * 10
+var errMercyPeriod = time.Second * 1000
 
 func (ui *UI) verifyConnection() {
 
