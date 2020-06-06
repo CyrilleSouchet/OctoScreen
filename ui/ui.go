@@ -137,10 +137,11 @@ func (ui *UI) verifyConnection() {
 		case s.Current.State.IsError():
 			fallthrough
 		case s.Current.State.IsOffline():
-			if err := (&octoprint.ConnectRequest{}).Do(ui.Printer); err != nil {
+			/*if err := (&octoprint.ConnectRequest{}).Do(ui.Printer); err != nil {
 				newUiState = "splash"
 				splashMessage = "Chargement..."
-			}
+			}*/
+			newUiState = "idle"
 		case s.Current.State.IsConnecting():
 			splashMessage = string(s.Current.State)
 		}
