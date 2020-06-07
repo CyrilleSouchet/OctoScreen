@@ -120,6 +120,11 @@ func (m *idleStatusPanel) updateTemperature() {
 	s, err := (&octoprint.StateRequest{Exclude: []string{"sd"}}).Do(m.UI.Printer)
 	if err != nil {
 		Logger.Error(err)
+		m.bed.SetLabel("Imprimante injoignable")
+		m.tool0.SetLabel("Imprimante injoignable")
+		m.tool1.SetLabel("Imprimante injoignable")
+		m.tool2.SetLabel("Imprimante injoignable")
+		m.tool3.SetLabel("Imprimante injoignable")
 		return
 	}
 
