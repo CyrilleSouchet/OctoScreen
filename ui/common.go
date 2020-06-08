@@ -14,7 +14,7 @@ import (
 )
 
 // Set at compilation time.
-var Version = "0.1"
+var Version = "0.1.1"
 var Build = "no-set"
 
 type Panel interface {

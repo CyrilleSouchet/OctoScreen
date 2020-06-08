@@ -1,6 +1,8 @@
 package ui
 
 import (
+	"os"
+
 	"github.com/gotk3/gotk3/gtk"
 	"github.com/mcuadros/go-octoprint"
 )
@@ -25,12 +27,23 @@ func MovePanel(ui *UI, parent Panel) Panel {
 
 func (m *movePanel) initialize() {
 	defer m.Initialize()
-	m.Grid().Attach(m.createMoveButton("X-", "move-x-.svg", octoprint.XAxis, -1), 1, 1, 1, 1)
-	m.Grid().Attach(m.createMoveButton("X+", "move-x+.svg", octoprint.XAxis, 1), 3, 1, 1, 1)
-	m.Grid().Attach(m.createMoveButton("Y+", "move-y+.svg", octoprint.YAxis, 1), 2, 0, 1, 1)
-	m.Grid().Attach(m.createMoveButton("Y-", "move-y-.svg", octoprint.YAxis, -1), 2, 2, 1, 1)
+	if os.Getenv("OCTOSCREEN_X_AXIS_INVERTED") == "YES" {
+		m.Grid().Attach(m.createMoveButton("X+", "move-x-.svg", octoprint.XAxis, -1), 1, 1, 1, 1)
+		m.Grid().Attach(m.createMoveButton("X-", "move-x+.svg", octoprint.XAxis, 1), 3, 1, 1, 1)
+	} else {
+		m.Grid().Attach(m.createMoveButton("X-", "move-x-.svg", octoprint.XAxis, -1), 1, 1, 1, 1)
+		m.Grid().Attach(m.createMoveButton("X+", "move-x+.svg", octoprint.XAxis, 1), 3, 1, 1, 1)
+	}
+	if os.Getenv("OCTOSCREEN_Y_AXIS_INVERTED") == "YES" {
+		m.Grid().Attach(m.createMoveButton("Y-", "move-y+.svg", octoprint.YAxis, 1), 2, 0, 1, 1)
+		m.Grid().Attach(m.createMoveButton("Y+", "move-y-.svg", octoprint.YAxis, -1), 2, 2, 1, 1)
+	} else {
+		m.Grid().Attach(m.createMoveButton("Y+", "move-y+.svg", octoprint.YAxis, 1), 2, 0, 1, 1)
+		m.Grid().Attach(m.createMoveButton("Y-", "move-y-.svg", octoprint.YAxis, -1), 2, 2, 1, 1)
+	}
 
-	if m.UI.Settings != nil && m.UI.Settings.ZAxisInverted {
+	//if m.UI.Settings != nil && m.UI.Settings.ZAxisInverted {
+	if os.Getenv("OCTOSCREEN_Z_AXIS_INVERTED") == "YES" {
 		m.Grid().Attach(m.createMoveButton("Z-", "move-z-.svg", octoprint.ZAxis, -1), 4, 0, 1, 1)
 		m.Grid().Attach(m.createMoveButton("Z+", "move-z+.svg", octoprint.ZAxis, 1), 4, 1, 1, 1)
 	} else {
