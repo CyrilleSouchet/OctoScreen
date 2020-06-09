@@ -84,10 +84,10 @@ func (m *systemPanel) createOctoScreenInfo() *gtk.Box {
 	info.SetVExpand(true)
 	info.SetVAlign(gtk.ALIGN_CENTER)
 
-	logoWidth := m.Scaled(62)
+	//logoWidth := m.Scaled(62)
 
-	img := MustImageFromFileWithSize("logo-z-bolt.svg", logoWidth, int(float64(logoWidth)*0.8))
-	info.Add(img)
+	//img := MustImageFromFileWithSize("logo-z-bolt.svg", logoWidth, int(float64(logoWidth)*0.8))
+	//info.Add(img)
 	info.Add(MustLabel("Version d'OctoScreen"))
 	info.Add(MustLabel("<b>%s (%s)</b>", Version, Build))
 	return info
