@@ -49,6 +49,7 @@ func (m *printStatusPanel) initialize() {
 
 func (m *printStatusPanel) showTools() {
 	toolsCount := m.defineToolsCount()
+	heatedBed := m.defineHeatedBed()
 
 	m.tool0 = m.createToolButton(0)
 	m.tool1 = m.createToolButton(1)
@@ -60,23 +61,31 @@ func (m *printStatusPanel) showTools() {
 	switch toolsCount {
 	case 1:
 		m.Grid().Attach(m.tool0, 1, 0, 2, 1)
-		m.Grid().Attach(m.bed, 1, 1, 2, 1)
+		if heatedBed {
+			m.Grid().Attach(m.bed, 1, 1, 2, 1)
+		}
 
 	case 2:
 		m.Grid().Attach(m.tool0, 1, 0, 1, 1)
 		m.Grid().Attach(m.tool1, 2, 0, 1, 1)
-		m.Grid().Attach(m.bed, 1, 1, 2, 1)
+		if heatedBed {
+			m.Grid().Attach(m.bed, 1, 1, 2, 1)
+		}
 	case 3:
 		m.Grid().Attach(m.tool0, 1, 0, 1, 1)
 		m.Grid().Attach(m.tool1, 2, 0, 1, 1)
 		m.Grid().Attach(m.tool2, 1, 1, 1, 1)
-		m.Grid().Attach(m.bed, 2, 1, 1, 1)
+		if heatedBed {
+			m.Grid().Attach(m.bed, 2, 1, 1, 1)
+		}
 	case 4:
 		m.Grid().Attach(m.tool0, 1, 0, 1, 1)
 		m.Grid().Attach(m.tool1, 2, 0, 1, 1)
 		m.Grid().Attach(m.tool2, 1, 1, 1, 1)
 		m.Grid().Attach(m.tool3, 2, 1, 1, 1)
-		m.Grid().Attach(m.bed, 1, 2, 1, 1)
+		if heatedBed {
+			m.Grid().Attach(m.bed, 1, 2, 1, 1)
+		}
 	}
 
 }
@@ -283,6 +292,22 @@ func (m *printStatusPanel) updateJob() {
 
 	m.time.Label.SetLabel(timeSpent)
 	m.timeLeft.Label.SetLabel(timeLeft)
+}
+
+func (m *printStatusPanel) defineHeatedBed() bool {
+	c, err := (&octoprint.ConnectionRequest{}).Do(m.UI.Printer)
+	if err != nil {
+		Logger.Error(err)
+		return true
+	}
+
+	profile, err := (&octoprint.PrinterProfilesRequest{Id: c.Current.PrinterProfile}).Do(m.UI.Printer)
+	if err != nil {
+		Logger.Error(err)
+		return true
+	}
+
+	return profile.HeatedBed
 }
 
 func (m *printStatusPanel) defineToolsCount() int {
