@@ -28,15 +28,15 @@ func MovePanel(ui *UI, parent Panel) Panel {
 func (m *movePanel) initialize() {
 	defer m.Initialize()
 	if os.Getenv("OCTOSCREEN_X_AXIS_INVERTED") == "YES" {
-		m.Grid().Attach(m.createMoveButton("X+", "move-x-.svg", octoprint.XAxis, -1), 1, 1, 1, 1)
-		m.Grid().Attach(m.createMoveButton("X-", "move-x+.svg", octoprint.XAxis, 1), 3, 1, 1, 1)
+		m.Grid().Attach(m.createMoveButton("X-", "move-x-.svg", octoprint.XAxis, 1), 1, 1, 1, 1)
+		m.Grid().Attach(m.createMoveButton("X+", "move-x+.svg", octoprint.XAxis, -1), 3, 1, 1, 1)
 	} else {
 		m.Grid().Attach(m.createMoveButton("X-", "move-x-.svg", octoprint.XAxis, -1), 1, 1, 1, 1)
 		m.Grid().Attach(m.createMoveButton("X+", "move-x+.svg", octoprint.XAxis, 1), 3, 1, 1, 1)
 	}
 	if os.Getenv("OCTOSCREEN_Y_AXIS_INVERTED") == "YES" {
-		m.Grid().Attach(m.createMoveButton("Y-", "move-y+.svg", octoprint.YAxis, 1), 2, 0, 1, 1)
-		m.Grid().Attach(m.createMoveButton("Y+", "move-y-.svg", octoprint.YAxis, -1), 2, 2, 1, 1)
+		m.Grid().Attach(m.createMoveButton("Y+", "move-y+.svg", octoprint.YAxis, -1), 2, 0, 1, 1)
+		m.Grid().Attach(m.createMoveButton("Y-", "move-y-.svg", octoprint.YAxis, 1), 2, 2, 1, 1)
 	} else {
 		m.Grid().Attach(m.createMoveButton("Y+", "move-y+.svg", octoprint.YAxis, 1), 2, 0, 1, 1)
 		m.Grid().Attach(m.createMoveButton("Y-", "move-y-.svg", octoprint.YAxis, -1), 2, 2, 1, 1)
@@ -47,8 +47,8 @@ func (m *movePanel) initialize() {
 		m.Grid().Attach(m.createMoveButton("Z-", "move-z-.svg", octoprint.ZAxis, -1), 4, 0, 1, 1)
 		m.Grid().Attach(m.createMoveButton("Z+", "move-z+.svg", octoprint.ZAxis, 1), 4, 1, 1, 1)
 	} else {
-		m.Grid().Attach(m.createMoveButton("Z+", "move-z-.svg", octoprint.ZAxis, 1), 4, 0, 1, 1)
-		m.Grid().Attach(m.createMoveButton("Z-", "move-z+.svg", octoprint.ZAxis, -1), 4, 1, 1, 1)
+		m.Grid().Attach(m.createMoveButton("Z-", "move-z-.svg", octoprint.ZAxis, 1), 4, 0, 1, 1)
+		m.Grid().Attach(m.createMoveButton("Z+", "move-z+.svg", octoprint.ZAxis, -1), 4, 1, 1, 1)
 	}
 
 	m.step = MustStepButton("move-step.svg",
