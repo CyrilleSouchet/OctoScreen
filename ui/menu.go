@@ -71,7 +71,7 @@ func getDeafultMenu() []octoprint.MenuItem {
 
 	default_menu := `[
 		{
-			"name": "Home",
+			"name": "Origines",
 			"icon": "home",
 			"panel": "home"
 		},
@@ -81,32 +81,32 @@ func getDeafultMenu() []octoprint.MenuItem {
 			"panel": "menu",
 			"items": [
 				{
-					"name": "Move",
+					"name": "Déplacer",
 					"icon": "move",
 					"panel": "move"
 				},
 				{
-					"name": "Extrude",
+					"name": "Extrudeur",
 					"icon": "filament",
 					"panel": "extrude_multitool"
 				},
 				{
-					"name": "Fan",
+					"name": "Ventilateur",
 					"icon": "fan",
 					"panel": "fan"
 				},
 				{
-					"name": "Temperature",
+					"name": "Température",
 					"icon": "heat-up",
 					"panel": "temperature"
 				},
 				{
-					"name": "Control",
+					"name": "Contrôler",
 					"icon": "control",
 					"panel": "control"
 				},
 				{
-                "name": "Custom Action",
+                "name": "Actions\npersonnalisée",
                 "icon": "add-on",
                 "panel": "customtool"
             }
@@ -123,7 +123,7 @@ func getDeafultMenu() []octoprint.MenuItem {
 			"panel": "menu",
 			"items": [
 				{
-					"name": "Bed Level",
+					"name": "Niveau lit",
 					"icon": "bed-level",
 					"panel": "bed-level"
 				},
@@ -133,12 +133,12 @@ func getDeafultMenu() []octoprint.MenuItem {
 					"panel": "nozzle-calibration"
 				},
 				{
-					"name": "Network",
+					"name": "Réseaux",
 					"icon": "network",
 					"panel": "network"
 				},
 				{
-					"name": "System",
+					"name": "Système",
 					"icon": "info",
 					"panel": "system"
 				}
